@@ -2,11 +2,31 @@ package com.example.desafiofleury
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //instanciei uma classe postservice
+        val remote = RetrofitClient.createService(PostService::class.java)
+        val call: Call<List<PostModel>> = remote.list()
+
+        //fazendo uma chamada assincrona, enfileirada para o retrofit organizar
+        val response = call.enqueue(object : Callback<List<PostModel>> {
+            override fun onFailure(call: Call<List<PostModel>>, t: Throwable) {
+                val s = t.message
+            }
+
+            override fun onResponse(call: Call<List<PostModel>>, res: Response<List<PostModel>>) {
+                val s = res.body()
+            }
+
+        })
+
     }
 }
