@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         //fazendo uma chamada assincrona
         val response = call.enqueue(object : Callback<List<ExameModel>> {
                 override fun onResponse(call: Call<List<ExameModel>>, response: Response<List<ExameModel>>) {
-                showData(response.body())
+                response.body()
             }
 
             override fun onFailure(call: Call<List<ExameModel>>, t: Throwable) {
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         //Configuração Recyclerview
     }
 
-    private fun showData(exames: List<ExameModel>?) {
+    private fun showData(exame: List<Exame>) {
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = ExameAdapter(exame)
