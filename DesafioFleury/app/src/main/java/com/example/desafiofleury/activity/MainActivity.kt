@@ -1,19 +1,16 @@
 package com.example.desafiofleury.activity
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.desafiofleury.R
-import com.example.desafiofleury.adapter.ExameAdapter
-import com.example.desafiofleury.model.Exame
-//import com.example.desafiofleury.model.ExameModel
-import com.example.desafiofleury.service.PostService
-import com.example.desafiofleury.service.RetrofitClient
+import com.example.desafiofleury.model.Exames
+import com.example.desafiofleury.service.Endpoint
+import com.example.desafiofleury.service.NetworkUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,41 +18,32 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Configuração Retrofit
-        val remote =
-            RetrofitClient.createService(
-                PostService::class.java
-            )
-        val call: Call<List<Exame>> = remote.list()
+        getData()
+    }
 
-        //fazendo uma chamada assincrona
-        val response = call.enqueue(object : Callback<List<Exame>> {
-                override fun onResponse(call: Call<List<Exame>>, response: Response<List<Exame>>) {
-                response.body()
+    fun getData() {
+        val retrofitClient = NetworkUtils
+                //sem o "s" a chamada não acontece (questão de segurança)
+            .getRetrofitInstance("https://5bfbefa5cf9d29001345c529.mockapi.io/api/v1/")
+
+        val endpoint = retrofitClient.create(Endpoint::class.java)
+        val callback = endpoint.getResults()
+
+        callback.enqueue(object : Callback<List<Exames>> {
+            override fun onFailure(call: Call<List<Exames>>, t: Throwable) {
+                Toast.makeText(baseContext, t.message, Toast.LENGTH_LONG).show()
             }
 
-            override fun onFailure(call: Call<List<Exame>>, t: Throwable) {
-                val s = t.message
+            //itens do array de objeto do json
+            override fun onResponse(call: Call<List<Exames>>, response: Response<List<Exames>>) {
+                response.body()?.forEach {
+                    textView.text = textView.text.toString().plus(it.name)
+                    textView.text = textView.text.toString().plus(it.doctor)
+                    textView.text = textView.text.toString().plus(it.healthy)
+                    textView.text = textView.text.toString().plus(it.id)
+                }
             }
         })
 
-        showData()
-        //Configuração Recyclerview
-
-
-
     }
-
-    private fun showData() {
-
-        recyclerView.apply {
-
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            val exame  = ArrayList<Exame>()
-            exame.add(Exame(name = "name", doctor = "doctor"))
-            recyclerView.adapter = ExameAdapter(exame)
-
-        }
-    }
-
 }

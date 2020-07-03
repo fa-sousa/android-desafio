@@ -1,13 +1,13 @@
 package com.example.desafiofleury.service
 
-import com.example.desafiofleury.model.Exame
+import com.example.desafiofleury.model.Exames
 import retrofit2.Call
 import retrofit2.http.GET
 
 //recurso + service
-interface PostService {
+interface Endpoint {
 
     @GET("results")
-    fun list(): Call<List<Exame>>
+    fun getResults() : Call<List<Exames>>
 
 }
