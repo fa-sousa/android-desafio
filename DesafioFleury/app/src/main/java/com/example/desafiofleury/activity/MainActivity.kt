@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.desafiofleury.R
 import com.example.desafiofleury.adapter.ExameAdapter
 import com.example.desafiofleury.model.Exame
-import com.example.desafiofleury.model.ExameModel
+//import com.example.desafiofleury.model.ExameModel
 import com.example.desafiofleury.service.PostService
 import com.example.desafiofleury.service.RetrofitClient
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,26 +26,35 @@ class MainActivity : AppCompatActivity() {
             RetrofitClient.createService(
                 PostService::class.java
             )
-        val call: Call<List<ExameModel>> = remote.list()
+        val call: Call<List<Exame>> = remote.list()
 
         //fazendo uma chamada assincrona
-        val response = call.enqueue(object : Callback<List<ExameModel>> {
-                override fun onResponse(call: Call<List<ExameModel>>, response: Response<List<ExameModel>>) {
+        val response = call.enqueue(object : Callback<List<Exame>> {
+                override fun onResponse(call: Call<List<Exame>>, response: Response<List<Exame>>) {
                 response.body()
             }
 
-            override fun onFailure(call: Call<List<ExameModel>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Exame>>, t: Throwable) {
                 val s = t.message
             }
         })
 
+        showData()
         //Configuração Recyclerview
+
+
+
     }
 
-    private fun showData(exame: List<Exame>) {
+    private fun showData() {
+
         recyclerView.apply {
+
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = ExameAdapter(exame)
+            val exame  = ArrayList<Exame>()
+            exame.add(Exame(name = "name", doctor = "doctor"))
+            recyclerView.adapter = ExameAdapter(exame)
+
         }
     }
 

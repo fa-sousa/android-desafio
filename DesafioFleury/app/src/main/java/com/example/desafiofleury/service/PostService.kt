@@ -1,6 +1,6 @@
 package com.example.desafiofleury.service
 
-import com.example.desafiofleury.model.ExameModel
+import com.example.desafiofleury.model.Exame
 import retrofit2.Call
 import retrofit2.http.GET
 
@@ -8,6 +8,6 @@ import retrofit2.http.GET
 interface PostService {
 
     @GET("results")
-    fun list(): Call<List<ExameModel>>
+    fun list(): Call<List<Exame>>
 
 }
