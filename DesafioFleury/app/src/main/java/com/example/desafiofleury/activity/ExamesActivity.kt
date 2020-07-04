@@ -1,12 +1,14 @@
 package com.example.desafiofleury.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.desafiofleury.R
+import com.example.desafiofleury.adapter.ExameAdapter
 import com.example.desafiofleury.model.Exames
-import com.example.desafiofleury.service.Endpoint
-import com.example.desafiofleury.service.NetworkUtils
+import com.example.desafiofleury.service.ExameService
+import com.example.desafiofleury.service.RetrofitInitializer
 import kotlinx.android.synthetic.main.activity_exames.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,16 +22,14 @@ class ExamesActivity : AppCompatActivity() {
 
         //Retrofit
         getData()
-
     }
 
     fun getData() {
-        val retrofitClient = NetworkUtils
-            //sem o "s" a chamada não acontece (questão de segurança)
+        val retrofitClient = RetrofitInitializer
             .getRetrofitInstance("https://5bfbefa5cf9d29001345c529.mockapi.io/api/v1/")
 
-        val endpoint = retrofitClient.create(Endpoint::class.java)
-        val callback = endpoint.getResults()
+        val exameService = retrofitClient.create(ExameService::class.java)
+        val callback = exameService.getResults()
 
         callback.enqueue(object : Callback<List<Exames>> {
             override fun onFailure(call: Call<List<Exames>>, t: Throwable) {
@@ -38,18 +38,19 @@ class ExamesActivity : AppCompatActivity() {
 
             //itens do array de objeto do json
             override fun onResponse(call: Call<List<Exames>>, response: Response<List<Exames>>) {
-                response.body()?.forEach {
-                    textView.text = textView.text.toString().plus(it.name)
-                    textView.text = textView.text.toString().plus(it.doctor)
-                    textView.text = textView.text.toString().plus(it.healthy)
-                    textView.text = textView.text.toString().plus(it.id)
+
+                response?.body()?.let {
+                    val exames: List<Exames> = it
+                    configureList(exames)
                 }
             }
         })
     }
 
-
-
-
+    private fun configureList(exames: List<Exames>) {
+        val recyclerView = recyclerview
+        recyclerView.adapter = ExameAdapter(exames, this)
+        val layoutManager = StaggeredGridLayoutManager(exames.size,  StaggeredGridLayoutManager.HORIZONTAL)
+        recyclerView.layoutManager = layoutManager
+    }
 }
-

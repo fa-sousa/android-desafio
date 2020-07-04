@@ -3,7 +3,7 @@ package com.example.desafiofleury.service
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class NetworkUtils {
+class RetrofitInitializer {
 
     companion object {
 

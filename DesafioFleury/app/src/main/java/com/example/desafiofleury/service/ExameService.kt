@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 //recurso + service
-interface Endpoint {
+interface ExameService {
 
     @GET("results")
     fun getResults() : Call<List<Exames>>
