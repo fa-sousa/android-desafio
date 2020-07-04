@@ -3,6 +3,7 @@ package com.example.desafiofleury.model
 import com.google.gson.annotations.SerializedName
 
 data class Exames(
+
     @SerializedName("id")
     var id : Int,
     @SerializedName("name")
@@ -10,5 +11,8 @@ data class Exames(
     @SerializedName("doctor")
     var doctor : String,
     @SerializedName("healthy")
-    var healthy : Boolean
+    var healthy : Boolean,
+    @SerializedName("timestamp")
+    var timestamp : Long
+
 )

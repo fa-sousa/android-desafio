@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.desafiofleury.R
 import com.example.desafiofleury.model.Exames
 import kotlinx.android.synthetic.main.list_item.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ExameAdapter(private val examesDados: List<Exames>,
                    private val context: Context) : RecyclerView.Adapter<ExameAdapter.ViewHolder>() {
@@ -21,9 +23,7 @@ class ExameAdapter(private val examesDados: List<Exames>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExameAdapter.ViewHolder {
-
         val view = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false)
-
         return ViewHolder(view)
     }
 
@@ -36,6 +36,7 @@ class ExameAdapter(private val examesDados: List<Exames>,
         @SuppressLint("WrongConstant")
         fun bindView(exame: Exames) {
 
+            //itens setados no recyclerview
             itemView.nomeMedico.text = exame.doctor
             itemView.nomeExame.text = exame.name
 
@@ -44,8 +45,10 @@ class ExameAdapter(private val examesDados: List<Exames>,
             } else {
                 itemView.statusVermelho.visibility = 1
             }
-//           itemView.imageStatus.text = exame.imageStatus
-//           itemView.data.text  = exame.timestamp.toString()
+
+            val data = Date(exame.timestamp)
+            val dataF = SimpleDateFormat("dd/MM/yyyy")
+            itemView.data.text  = dataF.format(data)
 
         }
     }
