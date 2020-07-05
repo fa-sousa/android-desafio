@@ -3,6 +3,7 @@ package com.example.desafiofleury.activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.desafiofleury.R
 import com.example.desafiofleury.adapter.ExameAdapter
@@ -50,7 +51,7 @@ class ExamesActivity : AppCompatActivity() {
     private fun configureList(exames: List<Exames>) {
         val recyclerView = recyclerview
         recyclerView.adapter = ExameAdapter(exames, this)
-        val layoutManager = StaggeredGridLayoutManager(exames.size,  StaggeredGridLayoutManager.HORIZONTAL)
+        val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
     }
 }

@@ -43,7 +43,7 @@ class ExameAdapter(private val examesDados: List<Exames>,
             if(exame.healthy === true){
                 itemView.statusVerde.visibility = 1
             } else {
-                itemView.statusVermelho.visibility = 1
+                itemView.statusVerde.visibility = 1
             }
 
             val data = Date(exame.timestamp)
