@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="170dp"
             android:layout_margin="5dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="11dp"
             android:layout_marginRight="10dp"
             android:elevation="8dp"
             android:orientation="vertical">
@@ -30,7 +30,7 @@
 
                 <TextView
                     android:id="@+id/nomeExame"
-                    android:layout_width="300dp"
+                    android:layout_width="293dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
@@ -43,11 +43,18 @@
                 <ImageView
                     android:id="@+id/statusVerde"
                     android:layout_width="30dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="42dp"
                     android:layout_marginTop="10dp"
-                    android:textAlignment="textEnd"
                     android:visibility="invisible"
                     app:srcCompat="@drawable/status_green_24dp" />
+
+                <ImageView
+                    android:id="@+id/statusVermelho"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/status_red_24dp" />
 
             </LinearLayout>
 
@@ -55,7 +62,7 @@
                 android:id="@+id/tituloCampo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="12dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginRight="10dp"
                 android:text="Médico"

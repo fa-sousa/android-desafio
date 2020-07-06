@@ -5,17 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#F8F5F5"
     tools:context=".activity.ExamesActivity">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:layout_marginBottom="1dp"
         android:background="#FFFFFF"
         android:textCursorDrawable="@null"
         app:iconifiedByDefault="false"
         app:layout_constraintBottom_toTopOf="@+id/recyclerview"
+        app:layout_constraintCircleRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
