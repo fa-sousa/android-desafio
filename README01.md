@@ -8,9 +8,13 @@ SearchView para realizar a busca dos exames na tela principal e Retrofit para co
 
 *** Anexar Imagem do App
 
+
+
+
 Itens a desenvolver:
 
 - OnClickListener nos itens da RecyclerView
-- Troca imagem de status 
-- Criar e implementar Activity Resultado, para exibir resultados dos exames 
+- Troca imagem de status (substituir status vermelho pela imagem circle X)
+- Criar e implementar Activity Resultado, para exibir resultados dos exames
+- Configurar o recurso Searchview para exibir o recyclerview
 
